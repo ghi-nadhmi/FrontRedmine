@@ -1,0 +1,43 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "importHelpers": true,
+    "module": "esnext",
+    "outDir": "./dist/out-tsc",
+    "baseUrl": "src",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2017",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "paths": {
+      "@app/*": [
+        "./app/*"
+      ],
+      "@assets/*": [
+        "./assets/*"
+      ],
+      "@environments/*": [
+        "./environments/*"
+      ],
+      "@pages/*": [
+        "./app/pages/*"
+      ],
+      "@shared/*": [
+        "./app/shared/*"
+      ]
+    }
+  },
+  "angularCompilerOptions": {
+    "preserveWhitespaces": false,
+//    "skipLibCheck": true
+  }
+}

@@ -1,0 +1,69 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="card mt-4">
+        <div class="card-header card-header-2 py-1 px-0">
+          <div class="row">
+            <div class="col">
+  
+              <span class="mx-2 text-arial "
+                [ngClass]="{'label-card-header-ar': currentLang=='ar', 'label-card-header-fr': currentLang=='fr'}">{{'Utilisateur.fiche'
+                | translate}}</span>
+            </div>
+  
+          </div>
+        </div>
+   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+          <div class="row float-right">
+  
+  
+  
+            <div class="col">
+              <button mat-stroked-button class="success-outline-btn pt-0 pb-0" style="border-radius: 2rem;"
+              >
+                <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                <span [ngClass]="{'label-search-ar': currentLang=='ar', 'label-search-fr': currentLang=='fr'}"
+                  class="text-arial bold">{{'label.save' | translate}}</span>
+              </button>
+            </div>
+            <div class="col">
+              <button mat-stroked-button class="danger-outline-btn pt-0 pb-0" style="border-radius: 2rem;"
+              >
+                <i class="fa fa-times mr-2" aria-hidden="true"></i>
+                <span class="text-arial"
+                  [ngClass]="{'label-search-ar': currentLang=='ar', 'label-search-fr': currentLang=='fr'}">{{'label.cancel'
+                  | translate}}</span>
+              </button>
+            </div>
+  
+          </div>
+        </form>
+      </div>
+      <br>
+      <br>
+      <br>
+  
+      <!--        /datatable start-->
+    </div>
+  
+  </section>

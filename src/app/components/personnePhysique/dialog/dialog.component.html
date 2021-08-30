@@ -1,0 +1,345 @@
+<div>
+    <div class="dialog-header mx-0 modal-header pt-0 px-0">
+        <div [ngClass]="{'col-auto': currentLang=='ar', 'col': currentLang=='fr'}" class="mt-2">
+            <div mat-dialog-title>
+                <h5 class="text-arial"
+                    [ngClass]="{'label-dialog-header-ar': this.data.currentLang=='ar', 'label-dialog-header-fr': this.data.currentLang=='fr'}">
+                    {{ 'personnePhysique.m-verif' | translate }}</h5>
+            </div>
+        </div>
+        <div [ngClass]="{'col': this.data.currentLang=='ar', 'col-auto': this.data.currentLang=='fr'}">
+            <div class="col p-0 mb-0 mt-2" style="margin-top: 0.2rem">
+                <i class="fa fa-times" style="font-size: 1.2rem; cursor: pointer" mat-dialog-close>
+                </i>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div mat-dialog-content> -->
+    <div mat-dialog-content class="mx-0 px-3 mt-3">
+        <!--<div class="card-header card-header-2 py-1 px-0">
+            <div class="row">
+                <div class="col">
+                    <i class="fa fa-list mx-2" aria-hidden="true"
+                       [ngStyle]="{'float': this.data.currentLang=='ar'?'right':'left'}"></i>
+                    <span [ngStyle]="{'float': this.data.currentLang=='ar'?'right':'left'}"
+                          class="mx-2 text-arial ">{{'personnePhysique.nomComposant' | translate}}</span>
+                </div>
+
+            </div>
+        </div>-->
+        <mat-table #table [dataSource]="this.datasource" class="mx-0 px-0">
+            <!-- Checkbox Column -->
+            <!-- Position Column -->
+            <ng-container matColumnDef="numeroPiece">
+                <mat-header-cell *matHeaderCellDef
+                    [ngClass]="{'label-table-header-ar':  this.data.currentLang=='ar', 'label-table-header-fr':  this.data.currentLang=='fr'}"> {{
+                    'personnePhysique.numPiece' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    {{ element.numeroPiece}}
+                </mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="prenom">
+                <mat-header-cell *matHeaderCellDef
+                    [ngClass]="{'label-table-header-ar':  this.data.currentLang=='ar', 'label-table-header-fr':  this.data.currentLang=='fr'}"> {{
+                    'personnePhysique.prenom' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    {{ element.prenom}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="prenomPere">
+                <mat-header-cell *matHeaderCellDef
+                    [ngClass]="{'label-table-header-ar':  this.data.currentLang=='ar', 'label-table-header-fr':  this.data.currentLang=='fr'}"> {{
+                    'personnePhysique.nomPere' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    {{ element.prenomPere}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="nom">
+                <mat-header-cell *matHeaderCellDef
+                    [ngClass]="{'label-table-header-ar': this.data.currentLang=='ar', 'label-table-header-fr':  this.data.currentLang=='fr'}"> {{
+                    'personnePhysique.nom' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    {{ element.nom}}
+                </mat-cell>
+            </ng-container>
+
+
+            <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true;"></mat-header-row>
+            <mat-row *matRowDef="let row ; columns: displayedColumns" style="cursor: pointer;background-color: #b0dbe2;"
+                (click)="onclick(row)">
+            </mat-row>
+
+        </mat-table>
+        <mat-paginator (page)="onPaginateChange($event)" [pageSize]="1">
+        </mat-paginator>
+
+        <mat-tab-group class="mx-0 px-0">
+            <mat-tab label=" {{ 'personnePhysique.info-pers' | translate }}">
+                <br>
+                <form [formGroup]="this.personnePhysiqueForm">
+
+
+                    <div class="row">
+                        <div class="col-3">
+                            <mat-form-field appearance="outline" class="example-full-width"
+                                [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                <mat-label>{{ 'personnePhysique.typePiece' | translate }}</mat-label>
+                                <mat-select formControlName="typePiece" required [disabled]="true">
+                                    <mat-option
+                                        [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                        {{ 'personnePhysique.choisirOption' | translate }}</mat-option>
+
+                                    <mat-option *ngFor="let tp of this.data.listTypePiece" [value]="tp.id"
+                                        [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                        {{this.data.currentLang === 'fr' ? tp.libelleFr : tp.libelleAr}}
+                                    </mat-option>
+
+                                </mat-select>
+
+                            </mat-form-field>
+
+                        </div>
+
+                        <div class="col-3">
+                            <mat-form-field appearance="outline" style="cursor: pointer; " class="example-full-width"
+                                [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                <mat-label>{{ 'personnePhysique.numPiece' | translate }}</mat-label>
+                                <input type="number" matInput formControlName="numPiece" readonly="true" required>
+
+                            </mat-form-field>
+
+                        </div>
+
+                        <div class="col-3">
+                            <!-- <mat-form-field appearance="outline" class="example-full-width"
+                                [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                <mat-label>{{ 'personnePhysique.datePiece' | translate }}</mat-label>
+                                <input matInput [matDatepicker]="picker2" readonly="true" formControlName="datePiece"
+                                    [disabled]="true">
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field> -->
+
+                            <app-select-date msgError=" " required [isError]="true" read
+                                [control]="personnePhysiqueForm.get('datePiece')" [readOnly]="true"
+                                label="{{ 'personnePhysique.datePiece' | translate }}">
+                            </app-select-date>
+
+                        </div>
+
+
+                        <div class="col-3">
+                            <mat-form-field appearance="outline" class="example-full-width"
+                                [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                <mat-label>{{ 'personnePhysique.lieuPiece' | translate }}</mat-label>
+                                <input type="input" matInput formControlName="lieuPiece" readonly="true">
+                            </mat-form-field>
+
+                        </div>
+
+
+                        <div class="col-3">
+                            <mat-form-field appearance="outline" class="example-full-width"
+                                [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                <mat-label>{{ 'personnePhysique.nom' | translate }}</mat-label>
+                                <input type="input" matInput formControlName="nom" required readonly="true">
+                            </mat-form-field>
+
+                        </div>
+
+
+                        <div class="col-3">
+                            <mat-form-field appearance="outline" class="example-full-width"
+                                [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                <mat-label>{{ 'personnePhysique.prenom' | translate }}</mat-label>
+                                <input type="input" matInput formControlName="prenom" required readonly="true">
+                            </mat-form-field>
+
+                        </div>
+
+                        <div class="col-3">
+                            <mat-form-field appearance="outline" class="example-full-width"
+                                [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                <mat-label>{{ 'personnePhysique.nomPere' | translate }}</mat-label>
+                                <input type="input" matInput formControlName="nomPere" readonly="true">
+                            </mat-form-field>
+
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field appearance="outline" class="example-full-width"
+                                [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                <mat-label>{{ 'personnePhysique.nomGrandPere' | translate }}</mat-label>
+                                <input type="input" matInput formControlName="nomGrandPere" readonly="true">
+                            </mat-form-field>
+
+                        </div>
+
+                        <div class="col-3">
+                            <mat-form-field appearance="outline" class="example-full-width"
+                                [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                <mat-label>{{ 'personnePhysique.prenomMere' | translate }}</mat-label>
+                                <input type="input" matInput formControlName="prenomMere" readonly="true">
+                            </mat-form-field>
+
+                        </div>
+
+                        <div class="col-3">
+                            <mat-form-field appearance="outline" class="example-full-width"
+                                [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                <mat-label>{{ 'personnePhysique.nomMere' | translate }}</mat-label>
+                                <input type="input" matInput formControlName="nomMere" readonly="true">
+                            </mat-form-field>
+
+                        </div>
+
+
+                        <div class="col-3">
+                            <!-- <mat-form-field appearance="outline" class="example-full-width"
+                                            [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                <mat-label>{{ 'personnePhysique.date' | translate }}</mat-label>
+                                <input matInput [matDatepicker]="picker" readonly="true" formControlName="dateNaissance"
+                                       [disabled]="true">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field> -->
+
+                            <app-select-date msgError=" " required [isError]="true" read
+                                [control]="personnePhysiqueForm.get('dateNaissance')" [readOnly]="true"
+                                label="{{ 'personnePhysique.date' | translate }}">
+                            </app-select-date>
+                        </div>
+
+
+                        <div class="col-3">
+                            <mat-form-field appearance="outline" class="example-full-width"
+                                [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                <mat-label>{{ 'personnePhysique.age' | translate }}</mat-label>
+                                <input type="number" matInput formControlName="age" min="1" readonly="true"
+                                    [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'left':'right' }">
+
+                            </mat-form-field>
+
+                        </div>
+
+
+                        <div class="col-3">
+                            <mat-form-field appearance="outline" class="example-full-width"
+                                [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                <mat-label>{{ 'personnePhysique.lieuNaissance' | translate }}</mat-label>
+                                <textarea type="input" matInput formControlName="lieuNaissance"
+                                    readonly="true"></textarea>
+                            </mat-form-field>
+
+                        </div>
+
+
+                        <div class="col-3">
+                            <mat-form-field appearance="outline" class="example-full-width"
+                                [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                <mat-label>{{ 'personnePhysique.sexe' | translate }}</mat-label>
+                                <mat-select formControlName="sexe" name="sexe" required [disabled]="true">
+                                    <mat-option
+                                        [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                        {{ 'personnePhysique.choisirOption' | translate }}</mat-option>
+                                    <mat-option *ngFor="let sex of this.data.listSexe" [value]="sex.id"
+                                        [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                        {{this.data.currentLang === 'fr' ? sex.libelleFr : sex.libelleAr}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                        </div>
+
+
+                        <div class="col-3">
+                            <mat-form-field appearance="outline" class="example-full-width"
+                                [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                <mat-label>{{ 'personnePhysique.tel' | translate }}</mat-label>
+                                <input type="number" matInput formControlName="tel" readonly="true">
+
+                            </mat-form-field>
+
+                        </div>
+
+
+                        <div class="col-3">
+                            <mat-form-field appearance="outline" class="example-full-width"
+                                [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                <mat-label>{{ 'personnePhysique.email' | translate }}</mat-label>
+                                <input type="email" matInput formControlName="email" readonly="true">
+
+                            </mat-form-field>
+
+                        </div>
+
+                        <div class="col-3">
+                            <mat-form-field appearance="outline" class="example-full-width"
+                                [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                <mat-label>{{ 'personnePhysique.etatCivil' | translate }}</mat-label>
+                                <mat-select formControlName="etaCivil" required [disabled]="true">
+                                    <mat-option
+                                        [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                        {{ 'personnePhysique.choisirOption' | translate }}</mat-option>
+                                    <mat-option *ngFor="let ec of this.data.listEtatCivil" [value]="ec.id"
+                                        [ngStyle]="{'text-align': this.data.currentLang==='ar'? 'right':'left' }">
+                                        {{this.data.currentLang === 'fr' ? ec.libelleFr : ec.libelleAr}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                        </div>
+
+                    </div>
+
+
+                </form>
+                <!-- </mat-tab>
+              </mat-tab-group> -->
+
+                <div mat-dialog-actions class="row float-right pb-3 mx-0">
+
+                    <div class="col">
+                        <button mat-stroked-button mat-button mat-dialog-close class="danger-outline-btn pt-0 pb-0"
+                            style="border-radius: 2rem;cursor: pointer;" (click)="mode('nconforme')"
+                            [mat-dialog-close]="env">
+                            <i class="fa fa-times mr-0" aria-hidden="true"></i>
+                            <span class="text-arial"
+                                [ngClass]="{'label-search-ar': currentLang=='ar', 'label-search-fr': currentLang=='fr'}">
+                                {{'personnePhysique.n-conf' | translate}}</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div mat-dialog-actions class="row float-left pb-3 mx-0">
+
+                    <div class="col">
+
+                        <button mat-stroked-button mat-button class="info-outline-btn pt-0 pb-0"
+                            style="border-radius: 2rem;cursor: pointer;" (click)="mode('modif')"
+                            [mat-dialog-close]="env">
+                            <i class="fa fa-edit mr-0" aria-hidden="true"></i>
+                            <span class="text-arial"
+                                [ngClass]="{'label-search-ar': currentLang=='ar', 'label-search-fr': currentLang=='fr'}">
+                                {{'personnePhysique.modif' | translate}}</span>
+                        </button>
+                        <button mat-stroked-button mat-dialog-close mat-button class="success-outline-btn pt-0 pb-0"
+                            style="border-radius: 2rem;cursor: pointer;" (click)="mode('conforme')"
+                            [mat-dialog-close]="env">
+                            <i class="fa fa-check mr-0" aria-hidden="true"></i>
+                            <span class="text-arial"
+                                [ngClass]="{'label-search-ar': currentLang=='ar', 'label-search-fr': currentLang=='fr'}">
+                                {{'personnePhysique.conf' | translate}}</span>
+                        </button>
+
+
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

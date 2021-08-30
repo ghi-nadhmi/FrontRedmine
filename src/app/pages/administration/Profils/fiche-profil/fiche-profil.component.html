@@ -1,0 +1,314 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="card mt-4">
+      <div class="card-header card-header-2 py-1 px-0">
+        <div class="row">
+          <div class="col">
+
+            <span class="mx-2 text-arial "
+              [ngClass]="{'label-card-header-ar': currentLang=='ar', 'label-card-header-fr': currentLang=='fr'}">{{'Profil.fiche'
+              | translate}}</span>
+          </div>
+
+        </div>
+      </div>
+      <!--        datatable start-->
+      <br>
+      <form name="formAddProfil" #f="ngForm" id="formAddProfil" [formGroup]="formAddProfil" ngNativeValidate>
+        <span class="mx-2 text-arial "
+          [ngClass]="{'label-card-header-ar': currentLang=='ar', 'label-card-header-fr': currentLang=='fr'}">{{'detailleProfil'
+          | translate}}</span>
+        <hr style="margin-top: 0px;">
+        <div class="row" style="padding-left: 2%; padding-right: 2%;">
+
+
+
+          <div class="col-4">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>{{ 'Profil.code' | translate }}</mat-label>
+              <input type="text" matInput name="code" formControlName="code" ngModel>
+              <mat-error>
+                {{ 'Profil.code' | translate }}  {{ 'is' | translate }} <strong> {{ 'consignationCourrier.erreuobligatoire' | translate }}</strong>
+              </mat-error>
+
+            </mat-form-field>
+          </div>
+
+          <div class="col-4">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>{{ 'Profil.libelleFr' | translate }}</mat-label>
+              <input type="text" matInput name="libelleFr" formControlName="libelleFr" ngModel>
+              <mat-error>
+                {{ 'Profil.libelleFr' | translate }} {{ 'is' | translate }} <strong> {{ 'consignationCourrier.erreuobligatoire' | translate }}</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+
+          <div class="col-4">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>{{ 'Profil.libelleAr' | translate }}</mat-label>
+              <input type="text" matInput name="libelleAr" formControlName="libelleAr" ngModel>
+              <mat-error>
+                {{ 'Profil.libelleAr' | translate }} {{ 'is' | translate }} <strong> {{ 'consignationCourrier.erreuobligatoire' | translate }}</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group col-md-4">
+
+
+
+
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>{{'listeAplication' | translate}}</mat-label>
+
+              <mat-select name="idAdmApp" formControlName="idAdmApp" [(value)]="selectedApplication.id" ngModel>
+                <mat-option>{{'exemple.choisirOption'| translate}}</mat-option>
+                <mat-option *ngFor="let application of listApplications" [value]="application.id">
+                  <span *ngIf="currentLang === 'ar'">{{application.libelleAr}}</span>
+                  <span *ngIf="currentLang === 'fr'">{{application.libelleFr}}</span>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+
+          <div class="col-4">
+            <div style="margin-top: 5px!important;">
+
+              <mat-radio-group class="example-radio-group" formControlName="flgActif"
+                aria-labelledby="example-radio-group-label">
+
+
+                <table style="width:100%">
+                  <tr>
+                    <th>
+                      <mat-radio-button class="example-radio-button " value="1"
+                        [checked]="profil.flgActif===1?true:false">
+                        {{ 'factif' | translate }}
+                      </mat-radio-button>
+                    </th>
+
+                    <th>
+                      <mat-radio-button class="example-radio-button " value="0"
+                        [checked]="profil.flgActif===0?true:false">
+                        {{ 'infactif' | translate }}
+                      </mat-radio-button>
+                    </th>
+                  </tr>
+                </table>
+
+
+              </mat-radio-group>
+
+            </div>
+          </div>
+
+
+        </div>
+
+        <span class="mx-2 text-arial "
+          [ngClass]="{'label-card-header-ar': currentLang=='ar', 'label-card-header-fr': currentLang=='fr'}">{{'affectionFonctionalite'
+          | translate}}</span>
+        <hr style="margin-top: 0px;">
+
+
+
+        <div class="row">
+
+          <div class="form-group col-md-12">
+
+
+            <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+
+              <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+
+                <button mat-icon-button disabled></button>
+                <mat-checkbox class="checklist-leaf-node mat-checkbox-layout" name="idFonc"
+                  [checked]="checklistSelection.isSelected(node)" [ngClass]="{'classAr ': currentLang=='ar'}"
+                  (change)="todoLeafItemSelectionToggle(node)">
+                  {{this.currentLang =='ar'? node.nameAr:node.nameFr }}</mat-checkbox> &nbsp; &nbsp;
+                <mat-checkbox *ngIf="checklistSelection.isSelected(node)" [ngClass]="{'classAr ': currentLang=='ar'}"
+                  (change)="todoLeafItemSelectionToggleReadOnly($event,node)">{{ 'droitAcce_deux' | translate }}
+                </mat-checkbox>
+
+
+              </mat-tree-node>
+
+              <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                <i mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
+                  <mat-icon class="mat-icon-rtl-mirror">
+                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                  </mat-icon>
+                </i>
+                <mat-checkbox [ngClass]="{'classParent ': currentLang=='ar'}" [checked]="descendantsAllSelected(node)"
+                  [indeterminate]="descendantsPartiallySelected(node)" (change)="todoItemSelectionToggle(node, $event)">
+
+                  {{currentLang=='ar'? node.nameAr:node.nameFr }}</mat-checkbox>
+
+              </mat-tree-node>
+            </mat-tree>
+
+          </div>
+
+
+        </div>
+
+
+
+        <span class="mx-2 text-arial "
+          [ngClass]="{'label-card-header-ar': currentLang=='ar', 'label-card-header-fr': currentLang=='fr'}">{{'affectionUtilisateur'|
+          translate}}</span>
+        <hr style="margin-top: 0px;">
+
+
+
+        <!-- datatable start -->
+        <div class="card mt-4">
+          <div class="card-header card-header-2 py-1 px-0">
+            <div class="row">
+              <div class="col">
+                <i class="fa fa-list mx-2" aria-hidden="true"></i>
+                <span class="mx-2 text-arial "
+                  [ngClass]="{'label-card-header-ar': currentLang=='ar', 'label-card-header-fr': currentLang=='fr'}">{{'usersByIdJurid.nameList'
+                  | translate}}</span>
+              </div>
+
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <mat-table #table [dataSource]="this.datasource">
+              <ng-container matColumnDef="test">
+                <th mat-header-cell *matHeaderCellDef style="background-color: #E0E0E0 !important;
+                          border-bottom-color: rgba(0,0,0,0);">
+                  <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let element" style="border-bottom-color: rgba(0,0,0,0);">
+                  <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(element) : null"
+                    [checked]="selection.isSelected(element)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+              <!-- Position Column -->
+              <ng-container matColumnDef="login">
+                <mat-header-cell *matHeaderCellDef
+                  [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                  {{'usersByIdJurid.login' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element"
+                  [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+                  {{currentLang==='ar'? element.login:element.login }}
+                </mat-cell>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="nom">
+                <mat-header-cell *matHeaderCellDef
+                  [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                  {{
+                  'usersByIdJurid.nom' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element"
+                  [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}"> {{
+                  element.nom }} </mat-cell>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="matricule">
+                <mat-header-cell *matHeaderCellDef
+                  [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                  {{'usersByIdJurid.matricule'| translate }} </mat-header-cell>
+                <mat-cell *matCellDef="let element"
+                  [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+                  {{currentLang==='ar'? element.matricule:element.matricule }}
+                </mat-cell>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="mail">
+                <mat-header-cell *matHeaderCellDef
+                  [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                  {{'usersByIdJurid.mail' | translate }} </mat-header-cell>
+                <mat-cell *matCellDef="let element"
+                  [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+                  {{currentLang==='ar'? element.mail: element.mail }} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef
+                  [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                  {{'usersByIdJurid.status' | translate }} </mat-header-cell>
+                <mat-cell *matCellDef="let element"
+                  [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+                  {{currentLang==='ar'? element.isActifAr:element.isActifFr }} </mat-cell>
+              </ng-container>
+
+
+
+              <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef class="justify-content-center">
+                  <i class="fa fa-wrench" style="font-size: 1.5rem; cursor: pointer; color: black">
+                  </i>
+                </mat-header-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true;"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator [length]="countPage" [pageSizeOptions]="[5, 10, 20]" (page)="onPaginateChange($event)"
+              showFirstLastButtons>
+            </mat-paginator>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="row float-right">
+
+
+
+          <div class="col">
+            <button mat-stroked-button class="success-outline-btn pt-0 pb-0" style="border-radius: 2rem;"
+              (click)="saveProfil(f.value)">
+              <i class="fa fa-check-square-o" aria-hidden="true"></i>
+              <span [ngClass]="{'label-search-ar': currentLang=='ar', 'label-search-fr': currentLang=='fr'}"
+                class="text-arial bold">{{'label.save' | translate}}</span>
+            </button>
+          </div>
+          <div class="col">
+            <button mat-stroked-button class="danger-outline-btn pt-0 pb-0" style="border-radius: 2rem;"
+              (click)="onCancel()">
+              <i class="fa fa-times mr-2" aria-hidden="true"></i>
+              <span class="text-arial"
+                [ngClass]="{'label-search-ar': currentLang=='ar', 'label-search-fr': currentLang=='fr'}">{{'label.cancel'
+                | translate}}</span>
+            </button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <!--        /datatable start-->
+  </div>
+
+</section>

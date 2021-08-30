@@ -1,0 +1,37 @@
+
+
+  <div mat-dialog-content class="mt-3 mx-0">
+      <form >
+          <div class="row">
+              <div class="col-8">
+                  <mat-form-field appearance="outline" class="example-full-width">
+                      <mat-label>{{ "chambre" | translate }}</mat-label>
+                      <mat-select  [(ngModel)]="selectedEntity" name="selectedEntity">
+                        
+                          <mat-option [value]="'choisirOption'">
+                              {{ "exemple.choisirOption" | translate }}
+                          </mat-option>
+                          <mat-option [ngStyle]="{'text-align': currentLang==='ar' ? 'right':'left'}"
+                              *ngFor="let obja of listEntity" [value]="obja.id">
+                              {{currentLang==='ar'? obja.libelleAr : obja.libelleFr}}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+              </div>
+          </div>
+      </form>
+
+      <div class="mt-3 mx-0">
+ 
+        <mat-form-field appearance="outline" class="example-full-width" style="width: 30%;">
+          <mat-label>{{ 'dateEntity' | translate }}</mat-label>
+          <input matInput  [value]="date" disabled=true >
+          <mat-datepicker-toggle matSuffix [for]="" (click)=showDialog()  ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+
+
+      
+      </div>
+  </div>
+

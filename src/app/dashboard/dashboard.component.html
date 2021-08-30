@@ -1,0 +1,46 @@
+<section class="content ">
+    <div class="container-fluid">
+
+
+        <div class="card p-4">
+            <div class="row">
+                <div class="border p-2 col-md-6 col-xs-12 col-sm-12">
+                    <!-- 	<legend  class="w-auto"  style="float: right;"> <h5> {{'DashboardChart.courAr' | translate}} </h5></legend> -->
+
+                    <!--                <div class="column">-->
+
+                    <canvas id="pie-chart-CourrierAr" [hidden]=" this.currentLang!='ar'" width="100%" height="100%"></canvas>
+                    <canvas id="pie-chart-CourrierFr" [hidden]=" this.currentLang!='fr'" width="100%" height="100%"></canvas>
+                    <!--                </div>-->
+                </div>
+                <div class="border p-2 col-md-6 col-xs-12 col-sm-12">
+                    <!-- <legend  class="w-auto" style="float: right;"> <h5>{{'DashboardChart.affaire' | translate}} </h5></legend> -->
+                    <!--                <div class="column">-->
+
+                    <canvas id="pie-chart-dossierAr" [hidden]=" this.currentLang!='ar'" width="100%" height="100%"></canvas>
+                    <canvas id="pie-chart-dossierFr" [hidden]=" this.currentLang!='fr'" width="100%" height="100%"></canvas>
+                    <!--                </div>-->
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row" [hidden]=" this.currentLang   =='fr' ?false : true">
+            <fieldset class="border p-2">
+                 <legend  class="w-auto"> <h5>{{'DashboardChart.courAr' | translate}} </h5></legend>
+            <div class="column">
+
+                <canvas id="pie-chart-CourrierFr" width="450" height="450"></canvas>
+                </div>
+                </fieldset>
+                <fieldset class="border p-2">
+                     <legend  class="w-auto"> <h5>{{'DashboardChart.affaire' | translate}} </h5></legend>
+            <div  class="column">
+
+                <canvas id="pie-chart-dossierFr" width="450" height="450"></canvas>
+                </div>
+        </fieldset>
+        </div>
+         -->
+
+
+    </div>
+</section>

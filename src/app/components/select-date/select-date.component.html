@@ -1,0 +1,22 @@
+<mat-form-field appearance="outline">
+  <mat-label>
+    {{ label }}
+  </mat-label>
+  <input
+          [formControl]="control"
+          [matDatepicker]="datePicker"
+          [max]="max"
+          [min]="min"
+          [required]="isrequied"
+          matInput
+          readonly="true"
+          [disabled]="readOnly"
+  />
+
+  <!--  <mat-error [control]="control" appControlError></mat-error> -->
+  <mat-datepicker #datePicker [dir]="dir" ></mat-datepicker>
+  <mat-datepicker-toggle [for]="datePicker" matSuffix style="outline: none"></mat-datepicker-toggle>
+
+  <mat-error *ngIf="isError" class="text-danger  ">
+    {{msgError}}</mat-error>
+</mat-form-field>

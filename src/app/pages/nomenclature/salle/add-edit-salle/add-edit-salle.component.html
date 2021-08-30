@@ -1,0 +1,86 @@
+<form #f1="ngForm" class="form-horizontal" [formGroup]="formSalle" id="formSalle" dir="auto" [ngClass]="{'text-class-lang-Ar': currentLang=='ar', 'text-class-lang-Fr': currentLang=='fr'}" >   
+  <div>
+    <div>
+      <h2 >{{ 'salles.addSalle' | translate }}</h2>
+    </div>
+  </div> 
+  
+  <div mat-dialog-content >
+      
+    <div class="row">
+      <ng-container>
+        <div fxFlex.gt-sm="20" fxFlex.lt-md="100" style= "width: 30%;">
+          <!-- <mat-form-field> -->
+            <mat-label>{{'salles.code' | translate}}<span class="red">*</span></mat-label>
+            <input matInput class="form-control" type="text" id="code"  formControlName="code">
+            <mat-error class="text-danger" *ngIf="!submit && formSalle.get('code').hasError('required')"  >
+              {{ 'salles.codeControl' | translate }}</mat-error>
+              <!-- <mat-error class="text-danger" *ngIf="isCodeExist(formEntite.get('code').value) && !formEntite.get('code').hasError('required') && !entiteService.affmodif">
+              Ce code existe deja </mat-error> -->
+          <!-- </mat-form-field> -->
+        </div>
+
+        &nbsp; &nbsp; &nbsp; &nbsp;
+
+        <div  fxFlex.gt-sm="20" fxFlex.lt-md="100" style= "width: 30%;" >
+          <!--  <mat-form-field > --> 
+               <mat-label >{{'salles.libelleAr' | translate}}<span class="red">*</span></mat-label>
+               <input  matInput class="form-control"type="text" id="libelleAr"  formControlName="libelleAr" >
+               <mat-error  class="text-danger" *ngIf="!submit && formSalle.get('libelleAr').hasError('required')"  >
+                 {{ 'salles.libelleArControl' | translate }}</mat-error>
+          <!--    </mat-form-field>  -->
+           </div>
+ 
+           &nbsp; &nbsp; &nbsp; &nbsp;
+           <div  fxFlex.gt-sm="20" fxFlex.lt-md="100" style= "width: 30%;" >
+            <!--  <mat-form-field > --> 
+                 <mat-label >{{'salles.libelleFr' | translate}}<span class="red">*</span></mat-label>
+                 <input  matInput class="form-control"type="text" id="libelleFr"  formControlName="libelleFr" >
+                 <mat-error  class="text-danger" *ngIf="!submit && formSalle.get('libelleFr').hasError('required')"  >
+                   {{ 'salles.libelleFrControl' | translate }}</mat-error>
+            <!--    </mat-form-field>  -->
+             </div>
+
+             <div  fxFlex.gt-sm="20" fxFlex.lt-md="100" style= "width: 30%;" >
+              <!--  <mat-form-field > --> 
+                   <mat-label >{{'salles.ordre' | translate}}<span class="red">*</span></mat-label>
+                   <input  matInput class="form-control"type="text" id="ordre"  formControlName="ordre" >
+                   <mat-error  class="text-danger" *ngIf="!submit && formSalle.get('ordre').hasError('required')"  >
+                     {{ 'salles.ordre' | translate }}</mat-error>
+              <!--    </mat-form-field>  -->
+               </div>
+
+               &nbsp; &nbsp; &nbsp; &nbsp;
+
+               <div style= "width: 30%;"> 
+                <mat-label  dir="auto" >{{'salles.libelleJurid'  | translate}}<span class="red">*</span></mat-label>
+                <mat-select formControlName="idNmJuridiction"   class="form-control" [(value)]="selectedValueJuird.id"  >
+                  <mat-option *ngFor="let juird of listeJuird" [value]="juird.id">
+                    <span *ngIf="currentLang === 'ar'">{{juird.libelleAr}}</span>
+                    <span *ngIf="currentLang === 'fr'">{{juird.libelleFr}}</span>
+                  </mat-option>
+                </mat-select> 
+
+                <mat-error *ngIf="!submit &&  !selectedValueJuird.id  "
+              class="text-danger">{{ 'salles.libelleJuridVControl' | translate }}</mat-error>
+
+              </div> 
+
+      </ng-container>
+    </div>    
+</div>
+<div mat-dialog-actions>
+   
+  <button type="button" class="btn btn-raised  btn-danger mr-2 btn-raised" style="float:left;margin-right:15px;margin-left:15px"  (click)="onNoClick()">
+    <i class="ft-x"></i>       {{ 'label.cancel' | translate }}
+  </button>
+  <button type="button" class="btn btn-raised   btn-raised"  style="background-color: green;border: green;" *ngIf="salleService.affmodifsalle"  (click)="editSalle(f1.value)">
+    <i class="fa fa-check-square-o"></i>       {{ 'label.save' | translate }}
+  </button>
+    <button type="button" class="btn btn-raised   btn-raised" style="background-color: green;border: green;"  *ngIf="!salleService.affmodifsalle" (click)="addSalle()">
+    <i class="fa fa-check-square-o"></i>  {{ 'label.save' | translate }}
+  </button>  
+
+  </div>
+
+</form>

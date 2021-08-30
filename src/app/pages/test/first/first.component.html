@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="card-body">
+        <h2>Test of Angualr Material</h2>
+        <div class="row">
+            <div class="col-3">
+                <app-select-date [control]="''"></app-select-date>
+            </div>
+            <div class="col-6">
+                <mat-form-field>
+                    <mat-label>الإسم</mat-label>
+                    <input matInput placeholder="Ex. Pizza" value="سفيان"
+                           >
+                </mat-form-field>
+            </div>
+            <style>
+                .rounded-t {
+                    border-radius: 30px !important;
+                }
+            </style>
+
+            <mat-form-field appearance="">
+                <mat-label>Favorite food</mat-label>
+                <input matInput placeholder="Ex. Pizza"
+                       class="form-control px-3 rounded-t float-right primary-shadow">
+            </mat-form-field>
+        </div>
+    </div>
+</div>

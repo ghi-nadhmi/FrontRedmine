@@ -1,0 +1,93 @@
+<section class="content">
+    <div class="container-fluid">
+
+        <!--        search begin-->
+         
+        <!--        /search begin-->
+
+
+        <!--        datatable start-->
+        <div class="card mt-4">
+            <div class="card-header card-header-2 py-1 px-0">
+                <div class="row">
+                    <div class="col">
+                        <i class="fa fa-list mx-2" aria-hidden="true"></i>
+                        <span class="mx-2 text-arial "
+                            [ngClass]="{'label-card-header-ar': currentLang=='ar', 'label-card-header-fr': currentLang=='fr'}">{{'Les utilisateurs' | translate}}</span>
+                    </div>
+                    <div class="col-auto float-right px-4">
+                        <div class="row m-0">
+                            
+                            <div class="col-11 py-0 m-0">
+                                <mat-label>Filter</mat-label>
+                                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <mat-table #table [dataSource]="this.datasource">
+                    <!-- Checkbox Column -->
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="numPiece">
+                        <mat-header-cell *matHeaderCellDef
+                            [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                            {{ 'nom' | translate }}</mat-header-cell>
+                        <mat-cell *matCellDef="let element"
+                            [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+                            {{element.firstname | translate}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="prenom">
+                        <mat-header-cell *matHeaderCellDef
+                            [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                            {{ 'prenom' | translate }}</mat-header-cell>
+                        <mat-cell *matCellDef="let element"
+                            [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+                            {{element.lastname | translate}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    
+                    <!-- Symbol Column -->
+                     
+
+                    <!-- Action Column -->
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef class="justify-content-center">
+                            <i class="fa fa-wrench" style="font-size: 1.5rem; cursor: pointer; color: black">
+                            </i>
+                        </mat-header-cell>
+
+                        <mat-cell mat-cell *matCellDef="let element" class="justify-content-center">
+                            <div class="row">
+                                 
+                                 
+                                    <i class="fa fa-ellipsis-v" style="font-size: 1.5rem; cursor: pointer; color: grey"
+                                    routerLink="/pers/hisprojects" (click)="SetID(element.id,element.firstname)"> </i>
+
+                                    
+                                
+                            </div>
+                        </mat-cell>
+                    </ng-container>
+
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true;"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <mat-paginator [length]="countPage" [pageSize]="limit" [pageSizeOptions]="[5, 10, 20]"
+                    (page)="onPaginateChange($event)" showFirstLastButtons>
+                </mat-paginator>
+            </div>
+        </div>
+        <!--        /datatable start-->
+    </div>
+</section>
+
+ 
+<!-- <app-personne-morale #child2 [idPersonne]=""></app-personne-morale> -->
+
+<!-- <app-tiers #tier [idDossier]="119"></app-tiers> -->

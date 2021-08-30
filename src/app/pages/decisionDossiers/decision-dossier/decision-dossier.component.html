@@ -1,0 +1,100 @@
+<form #f1="ngForm" class="form-horizontal" [formGroup]="formDecision" id="formDecision">
+ <div class="row">
+
+  <div class="col-3">
+    <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>{{'decisionDossier.admUtilisateur' | translate}}</mat-label>
+        <mat-select id="idAdmPersonnel" formControlName="idAdmPersonnel" 
+        [value]="selectedValueAdm" >
+            <mat-option [ngStyle]="{'text-align': currentLang==='ar'? 'right':'left' }">{{'document.comboOption' | translate}}</mat-option>
+            <mat-option [ngStyle]="{'text-align': currentLang==='ar'? 'right':'left' }" *ngFor="let utilisateurs of listUtilisateurs " [value]="utilisateurs.id">
+                {{utilisateurs.fullName}}
+            </mat-option>
+        </mat-select>
+       
+    </mat-form-field>
+  </div>
+
+ 
+  <div class="col-3">
+
+    <app-select-date [max]="maxDate" 
+        [control]="formDecision.get('dtDecision')" label="{{ 'decisionDossier.dtDecision' | translate }}"
+       >
+    </app-select-date>
+</div>
+
+
+<div class="col-3">
+  <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>{{'decisionDossier.NmDecision' | translate}}</mat-label>
+      <mat-select id="idNmDecision" formControlName="idNmDecision" (selectionChange)="getAfficheListDecision()"
+      [value]="selectedValueDecision" >
+          <mat-option [ngStyle]="{'text-align': currentLang==='ar'? 'right':'left' }">{{'document.comboOption' | translate}}</mat-option>
+          <mat-option [ngStyle]="{'text-align': currentLang==='ar'? 'right':'left' }" *ngFor="let decision of listDecision " [value]="decision">
+              <span *ngIf="currentLang === 'ar'">{{decision.libelleAr}}</span>
+              <span *ngIf="currentLang === 'fr'">{{decision.libelleFr}}</span>
+          </mat-option>
+      </mat-select>
+     
+  </mat-form-field>
+</div>
+
+<div class="col-3" *ngIf="codeNmDecision=='DEC-DOSS-DESSAIS' || codeNmDecision =='DEC-DOSS-CLASS' ">
+  <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>{{'decisionDossier.motifDec' | translate}}</mat-label>
+      <mat-select id="idNmMotifDecision" formControlName="idNmMotifDecision"
+      [value]="selectedValueMotif" >
+          <mat-option [ngStyle]="{'text-align': currentLang==='ar'? 'right':'left' }">{{'document.comboOption' | translate}}</mat-option>
+          <mat-option [ngStyle]="{'text-align': currentLang==='ar'? 'right':'left' }" *ngFor="let motif of listMotifDec  " [value]="motif.id">
+            <span *ngIf="currentLang === 'ar'">{{motif.libelleAr}}</span>
+            <span *ngIf="currentLang === 'fr'">{{motif.libelleFr}}</span>
+          </mat-option>
+      </mat-select>
+     
+  </mat-form-field>
+</div>
+
+<div class="col-3" *ngIf="codeNmDecision=='DEC-DOSS-RENVOI'">
+  <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>{{'decisionDossier.NmEntite' | translate}}</mat-label>
+      <mat-select id="idNmEntite" formControlName="idNmEntite"
+      [value]="selectedValueEntite" >
+          <mat-option [ngStyle]="{'text-align': currentLang==='ar'? 'right':'left' }">{{'document.comboOption' | translate}}</mat-option>
+          <mat-option [ngStyle]="{'text-align': currentLang==='ar'? 'right':'left' }" *ngFor="let entite of listEntite " [value]="entite.id">
+              <span *ngIf="currentLang === 'ar'">{{entite.libelleAr}}</span>
+              <span *ngIf="currentLang === 'fr'">{{entite.libelleFr}}</span>
+          </mat-option>
+      </mat-select>
+     
+  </mat-form-field>
+</div>
+
+<div class="col-3" *ngIf="codeNmDecision=='DEC-DOSS-DESSAIS'">
+  <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>{{'decisionDossier.juirDec' | translate}}</mat-label>
+      <mat-select id="idNmJurid" formControlName="idNmJurid"
+      [value]="selectedValueJuird" >
+          <mat-option [ngStyle]="{'text-align': currentLang==='ar'? 'right':'left' }">{{'document.comboOption' | translate}}</mat-option>
+          <mat-option [ngStyle]="{'text-align': currentLang==='ar'? 'right':'left' }" *ngFor="let juird of listeJuird  " [value]="juird.id">
+              <span *ngIf="currentLang === 'ar'">{{juird.libelleAr}}</span>
+              <span *ngIf="currentLang === 'fr'">{{juird.libelleFr}}</span>
+          </mat-option>
+      </mat-select>
+     
+  </mat-form-field>
+</div>
+
+
+
+<div class="col-10"  >
+ 
+  <mat-label>{{'decisionDossier.txtDecision' | translate}}</mat-label>
+  
+  <kendo-editor    id="txtDecision" formControlName="txtDecision" style="height:300px;" >
+  </kendo-editor>
+
+</div>
+
+</div>
+</form>

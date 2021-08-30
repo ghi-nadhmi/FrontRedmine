@@ -1,0 +1,102 @@
+.mat-card-subtitle {
+  color: #6b1a20;
+  padding: 3% 3% 0;
+}
+
+mat-form-field {
+  width: 100%;
+  max-width: 100%;
+}
+
+.form-element {
+  padding: 3%;
+}
+
+.notification {
+  background: #ffd0db;
+  color: #7c152e;
+  border-radius: 16px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+fieldset {
+  border-width: 1px;
+  border-color: white;
+}
+
+
+
+
+
+.mat-drawer-container {
+  height: 100%;
+  padding: 2% 3% 2%;
+}
+
+.mat-drawer-container .mat-drawer.mat-drawer-end {
+  width: 800px;
+  padding: 15px;
+  box-shadow: 15px 4px 28px 2px rgba(213, 213, 213, 0.02),
+  5px 9px 10px rgba(186, 186, 186, 0.54);
+}
+
+.mat-drawer-container .mat-drawer.mat-drawer-end .mat-card {
+  box-shadow: none;
+}
+
+.mat-drawer-content {
+  padding-left: 2%;
+}
+
+app-container .mat-sidenav {
+  border-left: none !important;
+}
+
+.mat-card-subtitle {
+  font-weight: bold;
+}
+
+::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+  padding: 0.4em 0 !important;
+}
+
+::ng-deep .mat-form-field-label-wrapper {
+  top: -1.5em;
+}
+
+::ng-deep
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+.mat-form-field-label {
+  transform: translateY(-1.1em) scale(0.75);
+  width: 133.33333%;
+}
+
+
+
+.cdk-program-focused, .cdk-program-focused {
+  outline: none !important;
+}
+
+
+button.mat-icon-button.mat-button-base {
+  outline: none !important;
+}
+
+button:focus{
+  outline: none !important;
+}
+
+mat-label.ng-star-inserted {
+  text-transform: none;
+  letter-spacing: 0px;
+}
+mat-form-field >div.mat-form-field-wrapper{
+  margin-bottom: 0px!important;
+margin-top: 0px!important;
+padding-bottom: 0px!important;
+}
+.mat-form-field-wrapper {
+  padding-bottom: 0px!important;
+}

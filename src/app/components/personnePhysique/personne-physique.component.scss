@@ -1,0 +1,113 @@
+.mat-toolbar {
+  height: 10px !important;
+}
+
+.example-spacer {
+  flex: 1 1 auto !important;
+}
+
+.title {
+
+  background-color: #a3e0c9 !important;
+}
+
+.liste {
+  background-color: rgb(222, 228, 222) !important;
+  border-radius: 10px 100px / 120px !important;
+
+}
+
+
+.mat-elevation-z8 {
+  overflow-x: auto !important;
+}
+
+.mat-expansion-panel{
+  background-color: rgb(238, 238, 238) !important;
+}
+
+.mat-expansion-panel-header {
+  background-color: lightgrey !important;
+}
+
+
+.mat-table {
+  width: 100% !important;
+  max-height: 350px !important;
+  overflow: auto !important;
+
+
+}
+
+.mat-row:hover .mat-cell {
+  background-color: #f1f1f1 !important;
+  cursor: pointer !important;
+  color: black !important;
+
+
+}
+
+.mat-row .mat-cell {
+  font-size: 10px !important;
+
+}
+
+.mat-header-cell {
+  font-size: larger !important;
+}
+
+
+.example-container {
+  display: flex !important;
+  flex-direction: column !important;
+
+}
+
+.mat-table {
+  overflow: auto !important;
+  max-height: 500px !important;
+
+}
+
+.mat-column-select {
+  overflow: visible !important;
+}
+
+
+mat-header-cell,
+mat-header-row,
+.mat-header-cell-def {
+  background: #f1f1f1 !important;
+
+
+  top: 0 !important;
+  position: sticky !important;
+  z-index: 1 !important;
+}
+
+mat-row {
+  color: #1a084c !important;
+}
+
+mat-cell {
+  font-family: Verdana, sans-serif !important;
+  color: #1a084c !important;
+
+}
+
+// mat-option {
+//   text-align: left!important;
+// }
+
+
+
+@media only screen and (max-width: 736px) and (orientation: portrait) {
+  mat-header-row,
+  mat-row {
+    width: 200% !important;
+  }
+}
+
+
+
+

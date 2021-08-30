@@ -1,0 +1,27 @@
+
+
+<ng-container *ngIf="locale==='fr'">
+  <div id="cal007" [style.direction]="'ltr'">
+
+    <mwl-calendar-week-view [viewDate]="viewDate" [events]="events" [locale]="locale" [weekStartsOn]="weekStartsOn"
+      [excludeDays]="excludeDays" [dayStartHour]="8" [dayEndHour]="17" [hourSegments]="2" [refresh]="refresh"
+      (eventTimesChanged)="eventTimesChanged($event)" (beforeViewRender)="beforeWeekViewRender($event)"
+      (hourSegmentClicked)="getInfo($event)">
+    </mwl-calendar-week-view>
+
+  </div>
+
+</ng-container>
+
+<ng-container *ngIf="locale==='ar'">
+  <div  id="cal007" [style.direction]="'rtl'">
+
+    <mwl-calendar-week-view [viewDate]="viewDate" [events]="events" [locale]="'ar-tn'" [weekStartsOn]="weekStartsOn"
+      [excludeDays]="excludeDays" [dayStartHour]="8" [dayEndHour]="17" [hourSegments]="2" [refresh]="refresh"
+      (eventTimesChanged)="eventTimesChanged($event)" (beforeViewRender)="beforeWeekViewRender($event)"
+      (hourSegmentClicked)="getInfo($event)">
+    </mwl-calendar-week-view>
+
+  </div>
+
+</ng-container>

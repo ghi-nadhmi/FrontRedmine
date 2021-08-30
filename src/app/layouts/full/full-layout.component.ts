@@ -1,0 +1,371 @@
+import {
+    Component,
+    OnInit,
+    ElementRef,
+    Inject,
+    Renderer2,
+    AfterViewInit,
+    OnDestroy,
+    ViewChild, Output, EventEmitter
+} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {ConfigService} from '@app/shared/services/config.service';
+import {DOCUMENT} from '@angular/common';
+import {LayoutService} from '@app/shared/services/layout.service';
+import {Subscription} from 'rxjs';
+import {$e} from 'codelyzer/angular/styles/chars';
+import {CustomizerComponent} from '@app/shared';
+import * as moment from "moment";
+import {DateAdapter} from "@angular/material/core";
+import { Router } from '@angular/router';
+
+const fireRefreshEventOnWindow = function () {
+    const evt = document.createEvent('HTMLEvents');
+    evt.initEvent('resize', true, false);
+    window.dispatchEvent(evt);
+};
+
+
+ /* export class MEnuIem  
+
+{
+libAr :string ;
+libFr : string ;
+path : string ;
+ //chidlitems : MEnuIem[] ;
+}
+
+export class MenuRoute{
+  liblleAr:string ; 
+  libelleFr:string ; 
+  path : string ; 
+  children: MenuRoute[] ; 
+}  */
+
+@Component({
+    selector: 'app-full-layout',
+    templateUrl: './full-layout.component.html',
+    styleUrls: ['./full-layout.component.scss']
+})
+
+
+export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
+    @ViewChild('sidebarBgImage', {static: true}) sidebarBgImage: ElementRef;
+    @ViewChild('appSidebar', {static: true}) appSidebar: ElementRef;
+    @ViewChild('wrapper', {static: true}) wrapper: ElementRef;
+
+    toggleCustomizerEvent = new EventEmitter<boolean>();
+    breadcrumbList: Array<any> = [];
+    affbread : boolean = false ;
+    hideSidebar: boolean;
+    layoutSub: Subscription;
+    iscollapsed = false;
+    isSidebar_sm = false;
+    isSidebar_lg = false;
+    bgColor = 'black';
+    bgImage = 'assets/img/sidebar-bg/01.jpg';
+
+    public config: any = {};
+
+    public options: any = {};
+    listbreadcumps    : any [] = [] ;
+    items: any[];
+    menuItems: any[] = [];
+    ListBreadcumps: any =[];
+   // listMenu:any[] ; 
+
+
+
+
+
+    constructor(
+        private elementRef: ElementRef,
+        private layoutService: LayoutService,
+        private configService: ConfigService,
+        @Inject(DOCUMENT) private document: Document,
+        private renderer: Renderer2,
+        private translate: TranslateService,
+        private dateAdapter: DateAdapter<Date>,
+        private router: Router
+    ) {
+        this.config = this.configService.templateConf;
+        this.options = {
+            direction: this.config.layout.dir,
+            bgColor: 'black',
+            bgImage: 'assets/img/sidebar-bg/01.jpg'
+        };
+
+        // event emitter call from customizer
+        this.layoutSub = layoutService.customizerChangeEmitted$.subscribe(
+            options => {
+                if (options) {
+                    if (options.bgColor) {
+                        this.bgColor = options.bgColor;
+                    }
+                    if (options.bgImage) {
+                        this.bgImage = options.bgImage;
+                        this.renderer.setAttribute(
+                            this.sidebarBgImage.nativeElement,
+                            'style',
+                            'background-image: url("' + this.bgImage + '")'
+                        );
+                    }
+
+                    if (options.bgImageDisplay === true) {
+                        this.bgImage = options.bgImage;
+                        this.renderer.setAttribute(
+                            this.sidebarBgImage.nativeElement,
+                            'style',
+                            'display: block; background-image: url("' + this.bgImage + '")'
+                        );
+                    } else if (options.bgImageDisplay === false) {
+                        this.bgImage = '';
+                        // this.renderer.setAttribute(this.sidebarBgImage.nativeElement, 'style', 'display: none');
+                        this.renderer.setAttribute(
+                            this.sidebarBgImage.nativeElement,
+                            'style',
+                            'background-image: none'
+                        );
+                    }
+
+                    if (options.compactMenu === true) {
+                        this.renderer.addClass(this.wrapper.nativeElement, 'nav-collapsed');
+                        this.renderer.addClass(
+                            this.wrapper.nativeElement,
+                            'menu-collapsed'
+                        );
+                    } else if (options.compactMenu === false) {
+                        if (
+                            this.wrapper.nativeElement.classList.contains('nav-collapsed')
+                        ) {
+                            this.renderer.removeClass(
+                                this.wrapper.nativeElement,
+                                'nav-collapsed'
+                            );
+                            this.renderer.removeClass(
+                                this.wrapper.nativeElement,
+                                'menu-collapsed'
+                            );
+                        }
+                    }
+
+                    if (options.sidebarSize === 'sidebar-lg') {
+                        this.isSidebar_sm = false;
+                        this.isSidebar_lg = true;
+                    } else if (options.sidebarSize === 'sidebar-sm') {
+                        this.isSidebar_sm = true;
+                        this.isSidebar_lg = false;
+                    } else {
+                        this.isSidebar_sm = false;
+                        this.isSidebar_lg = false;
+                    }
+
+                    if (options.layout === 'Light') {
+                        this.renderer.removeClass(this.document.body, 'layout-dark');
+                        this.renderer.removeClass(this.document.body, 'layout-transparent');
+                        this.renderer.removeClass(this.document.body, 'bg-hibiscus');
+                        this.renderer.removeClass(this.document.body, 'bg-purple-pizzazz');
+                        this.renderer.removeClass(this.document.body, 'bg-blue-lagoon');
+                        this.renderer.removeClass(this.document.body, 'bg-electric-violet');
+                        this.renderer.removeClass(this.document.body, 'bg-portage');
+                        this.renderer.removeClass(this.document.body, 'bg-tundora');
+                        this.renderer.removeClass(this.document.body, 'bg-glass-1');
+                        this.renderer.removeClass(this.document.body, 'bg-glass-2');
+                        this.renderer.removeClass(this.document.body, 'bg-glass-3');
+                        this.renderer.removeClass(this.document.body, 'bg-glass-4');
+                    } else if (options.layout === 'Dark') {
+                        if (this.document.body.classList.contains('layout-transparent')) {
+                            this.renderer.removeClass(
+                                this.document.body,
+                                'layout-transparent'
+                            );
+                            this.renderer.removeClass(this.document.body, 'bg-hibiscus');
+                            this.renderer.removeClass(
+                                this.document.body,
+                                'bg-purple-pizzazz'
+                            );
+                            this.renderer.removeClass(this.document.body, 'bg-blue-lagoon');
+                            this.renderer.removeClass(
+                                this.document.body,
+                                'bg-electric-violet'
+                            );
+                            this.renderer.removeClass(this.document.body, 'bg-portage');
+                            this.renderer.removeClass(this.document.body, 'bg-tundora');
+                            this.renderer.removeClass(this.document.body, 'bg-glass-1');
+                            this.renderer.removeClass(this.document.body, 'bg-glass-2');
+                            this.renderer.removeClass(this.document.body, 'bg-glass-3');
+                            this.renderer.removeClass(this.document.body, 'bg-glass-4');
+
+                            this.renderer.addClass(this.document.body, 'layout-dark');
+                        } else {
+                            this.renderer.addClass(this.document.body, 'layout-dark');
+                        }
+                    } else if (options.layout === 'Transparent') {
+                        this.renderer.addClass(this.document.body, 'layout-transparent');
+                        this.renderer.addClass(this.document.body, 'layout-dark');
+                        this.renderer.addClass(this.document.body, 'bg-glass-1');
+                    }
+
+                    if (options.transparentColor) {
+                        this.renderer.removeClass(this.document.body, 'bg-hibiscus');
+                        this.renderer.removeClass(this.document.body, 'bg-purple-pizzazz');
+                        this.renderer.removeClass(this.document.body, 'bg-blue-lagoon');
+                        this.renderer.removeClass(this.document.body, 'bg-electric-violet');
+                        this.renderer.removeClass(this.document.body, 'bg-portage');
+                        this.renderer.removeClass(this.document.body, 'bg-tundora');
+                        this.renderer.removeClass(this.document.body, 'bg-glass-1');
+                        this.renderer.removeClass(this.document.body, 'bg-glass-2');
+                        this.renderer.removeClass(this.document.body, 'bg-glass-3');
+                        this.renderer.removeClass(this.document.body, 'bg-glass-4');
+                        this.renderer.addClass(
+                            this.document.body,
+                            options.transparentColor
+                        );
+                    }
+                }
+            }
+        );
+    }
+
+    ngOnInit() {
+debugger
+        this.translate.setDefaultLang(this.config.layout.dir === 'rtl' ? 'ar' : 'fr');
+
+/*     this.currentUrl = this.router.url;
+    console.log(this.currentUrl);
+    console.log(this.currentUrl !== '/dashboard/dashboard');
+ */
+        this.bgColor = this.config.layout.sidebar.backgroundColor;
+
+       // this.listbreadcumps = this.layoutService.listBreadcums;
+
+        if (!this.config.layout.sidebar.backgroundImage) {
+            this.bgImage = '';
+        } else {
+            this.bgImage = this.config.layout.sidebar.backgroundImageURL;
+        }
+
+        if (this.config.layout.variant === 'Transparent') {
+            if (this.config.layout.sidebar.backgroundColor.toString().trim() === '') {
+                this.bgColor = 'bg-glass-1';
+            }
+        } else {
+            if (this.config.layout.sidebar.backgroundColor.toString().trim() === '') {
+                this.bgColor = 'black';
+            }
+        }
+
+        setTimeout(() => {
+            if (this.config.layout.sidebar.size === 'sidebar-lg') {
+                this.isSidebar_sm = false;
+                this.isSidebar_lg = true;
+            } else if (this.config.layout.sidebar.size === 'sidebar-sm') {
+                this.isSidebar_sm = true;
+                this.isSidebar_lg = false;
+            } else {
+                this.isSidebar_sm = false;
+                this.isSidebar_lg = false;
+            }
+            this.iscollapsed = this.config.layout.sidebar.collapsed;
+        }, 0);
+
+        // emit event to customizer
+        this.options.bgColor = this.bgColor;
+        this.options.bgImage = this.bgImage;
+
+        this.layoutService.emitCustomizerChange(this.options);
+
+        // customizer events
+        this.elementRef.nativeElement
+            .querySelector('#cz-compact-menu')
+            .addEventListener('click', this.onClick.bind(this));
+        this.elementRef.nativeElement
+            .querySelector('#cz-sidebar-width')
+            .addEventListener('click', this.onClick.bind(this));
+
+
+            
+           
+    }
+
+    ngAfterViewInit() {
+        setTimeout(() => {
+            if (this.config.layout.dir) {
+                this.options.direction = this.config.layout.dir;
+            }
+
+            if (this.config.layout.variant === 'Dark') {
+                this.renderer.addClass(this.document.body, 'layout-dark');
+            } else if (this.config.layout.variant === 'Transparent') {
+                this.renderer.addClass(this.document.body, 'layout-dark');
+                this.renderer.addClass(this.document.body, 'layout-transparent');
+                if (this.config.layout.sidebar.backgroundColor) {
+                    this.renderer.addClass(
+                        this.document.body,
+                        this.config.layout.sidebar.backgroundColor
+                    );
+                } else {
+                    this.renderer.addClass(this.document.body, 'bg-glass-1');
+                }
+                this.bgColor = 'black';
+                this.options.bgColor = 'black';
+                this.bgImage = '';
+                this.options.bgImage = '';
+                this.bgImage = '';
+                this.renderer.setAttribute(
+                    this.sidebarBgImage.nativeElement,
+                    'style',
+                    'background-image: none'
+                );
+            }
+        }, 0);
+    }
+
+    ngOnDestroy() {
+        if (this.layoutSub) {
+            this.layoutSub.unsubscribe();
+        }
+    }
+
+    onClick(event) {
+        // initialize window resizer event on sidebar toggle click event
+        setTimeout(() => {
+            fireRefreshEventOnWindow();
+        }, 300);
+    }
+
+    toggleHideSidebar($event: boolean): void {
+        setTimeout(() => {
+            this.hideSidebar = $event;
+        }, 0);
+    }
+
+    getOptions($event): void {
+        this.options = $event;
+    }
+
+    toggleSideBarDirection($event: string) {
+        console.log($event);
+        this.options.direction = $event;
+    }
+
+    toggleCustomizer($event: boolean) {
+        console.log($event);
+        this.toggleCustomizerEvent.emit($event);
+    }
+
+    public parent_menu='';
+
+    onDonnesChanged(event){
+      this.parent_menu=  localStorage.getItem('menuCode');
+      console.log('parent_menu');
+  
+    }
+
+/*     getItems (items)
+    { 
+        this.affbread = true;
+        console.log('this.affbread; ', this.affbread)
+        return items ;
+    }  */ 
+}

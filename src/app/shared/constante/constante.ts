@@ -1,0 +1,16 @@
+export const CONSTANTE= {
+
+    // CODE DOCUMENT
+    CA: 'CA',
+    CD: 'CD',
+    DOSS: 'DOSS',
+  
+ 
+  CODE_NM_ETAT_COU_DOSS : "DOSS",
+  CODE_NM_ETAT_COU_RETOURNE : "RETOURNE",
+  CODE_NM_ETAT_COU_REL_DOSS : "REL_DOSS",
+
+
+  CODE_NM_TYPE_ETAT : "ASS-DEF",
+
+};

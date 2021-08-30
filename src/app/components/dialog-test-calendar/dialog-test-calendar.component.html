@@ -1,0 +1,124 @@
+<div>
+
+  <div class="dialog-header mx-0 modal-header pt-0 px-0">
+      <div [ngClass]="{'col-auto': currentLang=='ar', 'col': currentLang=='fr'}">
+          <div mat-dialog-title>
+              <h5 class="text-arial"
+                  [ngClass]="{'label-dialog-header-ar': currentLang=='ar', 'label-dialog-header-fr': currentLang=='fr'}">
+                  {{ 'calendar.dialog.title' | translate }}</h5>
+          </div>
+      </div>
+     
+  </div>
+<div mat-dialog-content class="mt-3 mx-0">
+  <form >
+    <div class="row">
+        <div class="col-12">
+
+<ng-container *ngIf="locale==='fr'">
+  <div id="cal007" [style.direction]="'ltr'">
+
+    <div class="row text-center">
+
+      <div class="col-md-12">
+        <h3>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h3>
+
+
+
+      </div>
+      <div class="col-md-12">
+        <div class="btn-group">
+          <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+            (viewDateChange)="viewDateChange.next(viewDate)">
+            Previous
+          </div>
+          <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate"
+            (viewDateChange)="viewDateChange.next(viewDate)">
+            Today
+          </div>
+          <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+            (viewDateChange)="viewDateChange.next(viewDate)">
+            Next
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <br />
+
+    <mwl-calendar-week-view [viewDate]="viewDate" [events]="events" [locale]="locale" [weekStartsOn]="weekStartsOn"
+      [excludeDays]="excludeDays" [dayStartHour]="8" [dayEndHour]="10" [hourSegments]="2"
+      (eventClicked)="eventClicked($event)">
+    </mwl-calendar-week-view>
+
+  </div>
+
+</ng-container>
+
+<ng-container *ngIf="locale==='ar'">
+  <div id="cal007" [style.direction]="'rtl'">
+
+    <div class="row text-center">
+
+      <div class="col-md-12">
+        <h3>{{ viewDate | calendarDate: view + 'ViewTitle':"ar-tn" }}</h3>
+
+
+
+      </div>
+      <div class="col-md-12">
+
+        <div class="btn-group">
+          <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+            (viewDateChange)="viewDateChange.next(viewDate)">
+            Previous
+          </div>
+          <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate"
+            (viewDateChange)="viewDateChange.next(viewDate)">
+            Today
+          </div>
+          <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+            (viewDateChange)="viewDateChange.next(viewDate)" (click)="getEvents()">
+            Next
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <br />
+
+    <mwl-calendar-week-view [viewDate]="viewDate" [events]="events" [locale]="'ar-tn'" [weekStartsOn]="weekStartsOn"
+      [excludeDays]="excludeDays" [dayStartHour]="8" [dayEndHour]="10" [hourSegments]="2"
+      (eventClicked)="eventClicked($event)">
+    </mwl-calendar-week-view>
+
+  </div>
+
+</ng-container>
+</div>
+</div>
+
+<div mat-dialog-actions class="row float-right pb-3 mx-0">
+  <div class="col">
+      <button mat-stroked-button class="success-outline-btn pt-0 pb-0" style="border-radius: 2rem"
+          (click)="save()">
+          <i class="fa fa-check mr-2" aria-hidden="true"></i>
+          <span [ngClass]="{
+      'label-search-ar': currentLang == 'ar',
+      'label-search-fr': currentLang == 'fr'
+    }" class="text-arial bold text-capitalize">{{ "label.save" | translate }}</span>
+      </button>
+  </div>
+  <div class="col">
+    <button mat-stroked-button class="danger-outline-btn pt-0 pb-0" style="border-radius: 2rem"
+        (click)="close()">
+        <i class="fa fa-times mr-2" aria-hidden="true"></i>
+        <span class="text-arial" [ngClass]="{
+    'label-search-ar': currentLang == 'ar',
+    'label-search-fr': currentLang == 'fr'
+  }">{{ "label.cancel" | translate }}</span>
+    </button>
+</div>
+</div>
+</form>
+</div>

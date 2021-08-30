@@ -1,0 +1,16 @@
+<div>
+  <div class ="content-cointainer">
+  
+      <mat-toolbar class="toolbar"> 
+          <mat-card-title>Confirmation de suppression</mat-card-title>
+          
+   </mat-toolbar>
+  
+   </div>
+  
+   <span class="content-span full-width">Êtes-vous sûr de vouloir supprimer cette entite ?</span>
+   <br><br><br>
+  <button mat-flat-button id="no-button" [mat-dialog-close]="false">Annuler</button>
+  <button mat-flat-button id="yes-button" [mat-dialog-close]="true">Confirmer</button>
+      
+  </div>

@@ -1,0 +1,41 @@
+ 
+<div class="content-wrapper">
+  <div class="card" id="divElement" style="background-color:#F0F8FF">
+      <div class="card-header border-transparent">
+          <h3 class="card-title"> rate  {{nameT }}</h3>
+          <div id="divchart"><canvas id="myChart"></canvas></div>
+      </div>
+  </div>
+   
+  
+<div mat-dialog-actions>
+    <br/>
+    <button type="button" class="btn btn-raised  btn-danger mr-2 btn-raised" style="float:left;margin-right:15px;margin-left:15px"  (click)="onNoClick()">
+  <i class="ft-x"></i>       {{ 'label.cancel' | translate }}
+</button>
+<button type="button" class="btn btn-raised   btn-raised" *ngIf="entiteService.affmodif" style="background-color: green;border: green;" (click)="editEntite(f1.value)">
+  <i class="fa fa-check-square-o"></i>       {{ 'label.save' | translate }}
+</button>
+<button type="button" class="btn btn-raised   btn-raised" style="background-color: green;border: green;" *ngIf="!entiteService.affmodif" (click)="addEntite()">
+  <i class="fa fa-check-square-o"></i>  {{ 'label.save' | translate }}
+</button> 
+
+  </div>
+<!-- </div>
+</div> -->
+
+
+<!-- <div class="float-right">
+<button type="button" class="btn btn-raised  btn-danger mr-2 btn-raised"  (click)="onNoClick()">
+  <i class="ft-x"></i>       {{ 'label.cancel' | translate }}
+</button>
+
+<button type="button" class="btn btn-raised btn-primary  btn-raised" *ngIf="entiteService.affmodif" (click)="editEntite(f1.value)">
+  <i class="fa fa-check-square-o"></i>       {{ 'label.save' | translate }}
+</button>
+
+<button type="button" class="btn btn-raised btn-primary  btn-raised" *ngIf="!entiteService.affmodif" (click)="addEntite()">
+  <i class="fa fa-check-square-o"></i>  {{ 'label.save' | translate }}
+</button> -->
+
+       

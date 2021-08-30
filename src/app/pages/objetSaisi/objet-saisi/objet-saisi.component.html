@@ -1,0 +1,110 @@
+<div class="card mt-4">
+  <div class="card-header card-header-2 py-1 px-0">
+      <div class="row">
+          <div class="col">
+              <i class="fa fa-list mx-2" aria-hidden="true"></i>
+              <span class="mx-2 text-arial "
+                  [ngClass]="{'label-card-header-ar': currentLang=='ar', 'label-card-header-fr': currentLang=='fr'}">{{'objetSaisi.list'
+                  | translate}}</span>
+          </div>
+          <div class="col-auto float-right px-4">
+              <div class="row m-0">
+                  <div class="col p-0 mb-0" style="margin-top: 0.2rem">
+                      <i class="fa fa-plus"
+                         style="font-size: 1.5rem; cursor: pointer"
+                         (click)="onAddObjetSaisi();objetSaisiService.affmodifObjetSaisi = false" >
+                      </i>
+                  </div>
+                  <div class="col-11 py-0 m-0">
+                      <input matInput placeholder="{{'label.search' | translate}}"
+                          class="form-control px-3 rounded-t float-right bg-white" (keyup)="applyFilter($event)" >
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="card-body p-0">
+    <mat-table #table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="libelleNatureObjet">
+        <mat-header-cell *matHeaderCellDef
+                         [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}"
+        > {{ 'objetSaisi.natureObjet' | translate }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"
+                  [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}"
+        >
+            <span *ngIf="currentLang === 'ar'">{{element.libelleArNatureOs }}</span>
+            <span *ngIf="currentLang === 'fr'">{{element.libelleFrNatureOs }}</span>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="libelleObjet">
+      <mat-header-cell *matHeaderCellDef
+          [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+          {{ 'objetSaisi.libelleObjet' | translate }} </mat-header-cell>
+      <mat-cell *matCellDef="let element"
+          [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+          {{element.libelleObjet | translate}} </mat-cell>
+  </ng-container>
+
+    <ng-container matColumnDef="refObjet">
+      <mat-header-cell *matHeaderCellDef
+          [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+          {{ 'objetSaisi.refObjet' | translate }} </mat-header-cell>
+      <mat-cell *matCellDef="let element"
+          [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+          {{element.refObjet | translate}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="organismeObjet">
+    <mat-header-cell *matHeaderCellDef
+        [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+        {{ 'objetSaisi.orgObjet' | translate }} </mat-header-cell>
+    <mat-cell *matCellDef="let element"
+        [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+        {{element.organisme | translate}} </mat-cell>
+</ng-container>
+
+         <!-- Action Column -->
+         <ng-container matColumnDef="action">
+          <mat-header-cell *matHeaderCellDef class="justify-content-center">
+              <i class="fa fa-wrench" style="font-size: 1.5rem; cursor: pointer; color: black">
+              </i>
+          </mat-header-cell>
+
+          <mat-cell mat-cell *matCellDef="let element" class="justify-content-center">
+              <div class="row">
+                  <div class="col-1 mx-1">
+                      <i class="ft-edit-2" style="font-size: 1.5rem; cursor: pointer; color: #FFC107"
+                       (click)="getRow(element);onEditObjetSaisi();objetSaisiService.affmodifObjetSaisi = true"  >
+                      </i>
+                  </div>
+                  <div class="col-1 mx-1">
+                      <i class="ft-trash-2" style="font-size: 1.5rem; cursor: pointer;color: #FF586B"
+                        (click)="onDeleteObjetSaisi()">
+                      </i>
+                  </div> 
+                <!--   <div class="col-1 mx-1">
+                      <i class="fa fa-ellipsis-v" style="font-size: 1.5rem; cursor: pointer; color: grey"
+                          (click)="onEdit()">
+                      </i>
+                  </div> -->
+              </div>
+          </mat-cell>
+      </ng-container>
+
+
+
+      <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true;"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRow(row)"></mat-row>
+  </mat-table>
+  <mat-paginator [length]="countPage"  [pageSizeOptions]="[5, 10, 20]"
+  (page)="onPaginateChange($event)" showFirstLastButtons>
+</mat-paginator>
+
+</div>
+</div> 
+
+
+

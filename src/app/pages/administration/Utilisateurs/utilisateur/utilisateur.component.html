@@ -1,0 +1,215 @@
+<section class="content">
+  <div class="container-fluid">
+
+   
+ <!--        search begin-->
+ <div class="card">
+  <div class="card-header card-header-1 py-1 px-0">
+      <div class="row">
+          <div class="col">
+              <i class="fa fa-search mx-2" aria-hidden="true"></i>
+              <span class="mx-2 text-arial "
+                  [ngClass]="{'label-card-header-ar': currentLang=='ar', 'label-card-header-fr': currentLang=='fr'}">{{'label.search'
+                  | translate}}</span>
+          </div>
+      </div>
+  </div>
+  <div class="card-body">
+      <form  #f1="ngForm" [formGroup]="formUtilisateurSearch"  >
+          <div class="row">
+              <div class="col-4">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label> {{ 'Utilisateur.utilisateur' | translate }}</mat-label>
+                    <input type="text" matInput name="utilisateur" formControlName="utilisateur" >
+      
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-4">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label> {{ 'Utilisateur.name' | translate }}</mat-label>
+                    <input type="text" matInput name="name" formControlName="name" >
+      
+                  </mat-form-field>
+                </div>
+
+                <div class="col-4">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label> {{ 'Utilisateur.mail' | translate }}</mat-label>
+                    <input type="text" matInput name="mail" formControlName="mail" >
+      
+                  </mat-form-field>
+                </div>
+                <div class="col-3">
+                  <div style="margin-top: 11px!important;">
+      
+                    <mat-radio-group class="example-radio-group" formControlName="flgActif"
+                      aria-labelledby="example-radio-group-label">
+      
+      
+                      <table style="width:100%">
+                        <tr>
+                          <th>
+                            <mat-radio-button class="example-radio-button "  value="1">
+                              {{ 'factif' | translate }}
+                            </mat-radio-button>
+                          </th>
+      
+                          <th>
+                            <mat-radio-button class="example-radio-button " value="0">
+                              {{ 'infactif' | translate }}
+                            </mat-radio-button>
+                          </th>
+
+                          <th>
+                            <mat-radio-button class="example-radio-button " value="-1">
+                              {{ 'expire' | translate }}
+                            </mat-radio-button>
+                          </th>
+                        </tr>
+                      </table>
+      
+      
+                    </mat-radio-group>
+      
+                  </div>
+                </div>
+          </div>
+          
+          <div class="row float-right">
+              <div class="col">
+                  <button mat-stroked-button class="success-outline-btn pt-0 pb-0"
+                          style="border-radius: 2rem;" (click)="search()">
+                      <i class="fa fa-search mr-2" aria-hidden="true"></i>
+                      <span [ngClass]="{'label-search-ar': currentLang=='ar', 'label-search-fr': currentLang=='fr'}"
+                            class="text-arial bold">{{'label.search' | translate}}</span>
+                  </button>
+              </div>
+              <div class="col">
+                  <button mat-stroked-button class="danger-outline-btn pt-0 pb-0"
+                          style="border-radius: 2rem;">
+                      <i class="fa fa-times mr-2" aria-hidden="true"></i>
+                      <span class="text-arial"
+                            [ngClass]="{'label-search-ar': currentLang=='ar', 'label-search-fr': currentLang=='fr'}"
+                      >{{'label.cancel' | translate}}</span>
+                  </button>
+              </div>
+          </div>
+      </form>
+  </div>
+</div>
+<!--        /search begin-->
+
+
+
+
+
+     
+      <!--        datatable start-->
+      <div class="card mt-4">
+          <div class="card-header card-header-2 py-1 px-0">
+              <div class="row">
+                  <div class="col">
+                      <i class="fa fa-list mx-2" aria-hidden="true"></i>
+                      <span class="mx-2 text-arial "
+                          [ngClass]="{'label-card-header-ar': currentLang=='ar', 'label-card-header-fr': currentLang=='fr'}">{{'Utilisateur.NomList'
+                          | translate}}</span>
+                  </div>
+                  <div class="col-auto float-right px-4">
+                      <div class="row m-0">
+                          <div class="col p-0 mb-0" style="margin-top: 0.2rem">
+                            <i class="fa fa-plus" style="font-size: 1.5rem; cursor: pointer"
+                            (click)="redirectFicheUtilisateur()">
+                              </i>
+                          </div>
+                          <div class="col-11 py-0 m-0">
+                              <input matInput placeholder="{{'label.search' | translate}}"
+                                  class="form-control px-3 rounded-t float-right bg-white">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="card-body p-0">
+              <mat-table #table [dataSource]="this.datasource">
+
+                  <ng-container matColumnDef="utilisateur">
+                      <mat-header-cell *matHeaderCellDef
+                          [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                          {{ 'Utilisateur.utilisateur' | translate }}</mat-header-cell>
+                      <mat-cell *matCellDef="let element"
+                          [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+                          {{element.login| translate}} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef
+                        [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                        {{ 'Utilisateur.name' | translate }}</mat-header-cell>
+                    <mat-cell *matCellDef="let element"
+                        [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+                        {{element.fullName| translate}} </mat-cell>
+                </ng-container>
+
+         
+
+
+            <ng-container matColumnDef="mail">
+              <mat-header-cell *matHeaderCellDef
+                  [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                  {{ 'Utilisateur.mail' | translate }}</mat-header-cell>
+              <mat-cell *matCellDef="let element"
+                  [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+                  {{element.mail| translate}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef
+                [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                {{ 'Utilisateur.status' | translate }}</mat-header-cell>
+            <mat-cell *matCellDef="let element"
+                [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+                {{currentLang==='ar'? element.isActifAr:element.isActifFr }} </mat-cell>
+        </ng-container>
+
+          
+
+
+                  <!-- Action Column -->
+                  <ng-container matColumnDef="action">
+                    <mat-header-cell *matHeaderCellDef class="justify-content-center">
+                        <i class="fa fa-wrench" style="font-size: 1.5rem; cursor: pointer; color: black">
+                        </i>
+                    </mat-header-cell>
+
+                    <mat-cell mat-cell *matCellDef="let element" class="justify-content-center"  >
+                        <div class="row">
+                            <div class="col-1 mx-1">
+                                <i class="ft-edit-2" style="font-size: 1.5rem; cursor: pointer; color: #FFC107"(click)="editUtilisateur(element)">
+                               </i>
+                            </div>
+                            <div class="col-1 mx-1">
+                                <i class="ft-trash-2" style="font-size: 1.5rem; cursor: pointer;color: #FF586B"  (click)="onDelete(element)">
+                                </i>
+                            </div>
+                            <div class="col-1 mx-1">
+                                <i class="fa fa-ellipsis-v" style="font-size: 1.5rem; cursor: pointer; color: grey">
+                                </i>
+                            </div>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true;"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+              <mat-paginator [length]="countPage" [pageSize]="limit" [pageSizeOptions]="[5, 10, 20]"
+                  (page)="onPaginateChange($event)" showFirstLastButtons>
+              </mat-paginator>
+          </div>
+      </div>
+      <!--        /datatable start-->
+  </div>
+</section>
+
+<!-- <app-personne-physique></app-personne-physique> -->

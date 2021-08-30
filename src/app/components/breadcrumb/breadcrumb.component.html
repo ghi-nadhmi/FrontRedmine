@@ -1,0 +1,20 @@
+
+<div class="block-header">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+            <ul class="breadcrumb breadcrumb-style ">
+                <li class="breadcrumb-item align-bottom" (click)="emptyList()">
+                    <a [routerLink]="['/home']"><i class="fa fa-home" style="font-size: 1.8rem" ></i></a>
+                </li>
+                <li class="breadcrumb-item"  *ngFor="let item of breadCumbItemsList" style="font-family:Arial;font-size: 18px;" >
+                  <a routerLink="'{{item.path}}'" >
+                    <span *ngIf="currentLang === 'ar' ">{{ item.libAr }} </span>
+                    <span *ngIf="currentLang === 'fr' ">{{ item.libFr }}</span>
+                  </a>
+              </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,281 @@
+<section class="content">
+    <div class="container-fluid">
+
+        <!--        search begin-->
+        <div class="card">
+            <div class="card-header card-header-1 py-1 px-0">
+                <div class="row">
+                    <div class="col">
+                        <i class="fa fa-search mx-2" aria-hidden="true"></i>
+                        <span class="mx-2 text-arial "
+                            [ngClass]="{'label-card-header-ar': currentLang=='ar', 'label-card-header-fr': currentLang=='fr'}">{{'label.search' | translate}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col-4">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label>{{ 'exemple.exemple1' | translate }}</mat-label>
+                                <input type="email" matInput>
+                                <mat-error>
+                                    Email is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <!--                        download-->
+                        <div class="col-4">
+                            <app-select-date [control]="''" label="{{ 'exemple.exemple2' | translate }}">
+                            </app-select-date>
+                        </div>
+                        <div class="col-4">
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label>{{'exemple.liste' | translate}}</mat-label>
+                                <mat-select>
+                                    <mat-option [value]="'choisirOption'">
+                                        {{'exemple.choisirOption' | translate}}
+                                    </mat-option>
+                                    <mat-option>
+
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div *ngIf="toggleSearchCardFlag === true">
+                        <div class="row">
+                            <div class="col-4">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>{{ 'exemple.exemple1' | translate }}</mat-label>
+                                    <input type="email" matInput>
+                                    <mat-error>
+                                        Email is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-4">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>{{ 'exemple.exemple1' | translate }}</mat-label>
+                                    <input type="email" matInput>
+                                    <mat-error>
+                                        Email is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-4">
+                                <app-select-date [control]="''" label="{{ 'exemple.exemple2' | translate }}">
+                                </app-select-date>
+                            </div>
+                            <div class="col-4">
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>{{'exemple.liste' | translate}}</mat-label>
+                                    <mat-select>
+                                        <mat-option [value]="'choisirOption'">
+                                            {{'exemple.choisirOption' | translate}}
+                                        </mat-option>
+                                        <mat-option>
+
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>{{ 'exemple.exemple1' | translate }}</mat-label>
+                                    <input type="email" matInput>
+                                    <mat-error>
+                                        Email is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-4">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>{{ 'exemple.exemple1' | translate }}</mat-label>
+                                    <input type="email" matInput>
+                                    <mat-error>
+                                        Email is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-4">
+                                <app-select-date [control]="''" label="{{ 'exemple.exemple2' | translate }}">
+                                </app-select-date>
+                            </div>
+                            <div class="col-4">
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>{{'exemple.liste' | translate}}</mat-label>
+                                    <mat-select>
+                                        <mat-option [value]="'choisirOption'">
+                                            {{'exemple.choisirOption' | translate}}
+                                        </mat-option>
+                                        <mat-option>
+
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row float-right">
+                        <div class="col">
+                            <button mat-stroked-button class="success-outline-btn pt-0 pb-0"
+                                style="border-radius: 2rem;">
+                                <i class="fa fa-search mr-2" aria-hidden="true"></i>
+                                <span
+                                    [ngClass]="{'label-search-ar': currentLang=='ar', 'label-search-fr': currentLang=='fr'}"
+                                    class="text-arial bold">{{'label.search' | translate}}</span>
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button mat-stroked-button class="danger-outline-btn pt-0 pb-0"
+                                style="border-radius: 2rem;">
+                                <i class="fa fa-times mr-2" aria-hidden="true"></i>
+                                <span class="text-arial"
+                                    [ngClass]="{'label-search-ar': currentLang=='ar', 'label-search-fr': currentLang=='fr'}">{{'label.cancel' | translate}}</span>
+                            </button>
+                        </div>
+                        <div class="col">
+                            <i *ngIf="toggleSearchCardFlag === false" class="fa fa-search-plus mt-1"
+                                style="font-size: 1.5rem; color: darkgrey; cursor: pointer"
+                                (click)="toggleSearchCard()">
+                            </i>
+                            <i *ngIf="toggleSearchCardFlag === true" class="fa fa-search-minus mt-1"
+                                style="font-size: 1.5rem; color: darkgrey; cursor: pointer"
+                                (click)="toggleSearchCard()">
+                            </i>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--        /search begin-->
+
+
+        <!--        datatable start-->
+        <div class="card mt-4">
+            <div class="card-header card-header-2 py-1 px-0">
+                <div class="row">
+                    <div class="col">
+                        <i class="fa fa-list mx-2" aria-hidden="true"></i>
+                        <span class="mx-2 text-arial "
+                            [ngClass]="{'label-card-header-ar': currentLang=='ar', 'label-card-header-fr': currentLang=='fr'}">{{'exemple.liste' | translate}}</span>
+                    </div>
+                    <div class="col-auto float-right px-4">
+                        <div class="row m-0">
+                            <div class="col p-0 mb-0" style="margin-top: 0.2rem">
+                                <i class="fa fa-plus" style="font-size: 1.5rem; cursor: pointer" (click)="onAdd()">
+                                </i>
+                            </div>
+                            <div class="col-11 py-0 m-0">
+                                <input matInput placeholder="{{'label.search' | translate}}"
+                                    class="form-control px-3 rounded-t float-right bg-white">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <mat-table #table [dataSource]="this.datasource">
+                    <!-- Checkbox Column -->
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="numPiece">
+                        <mat-header-cell *matHeaderCellDef
+                            [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                            {{ 'numPiece' | translate }}</mat-header-cell>
+                        <mat-cell *matCellDef="let element"
+                            [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+                            {{element.numPiece | translate}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="prenom">
+                        <mat-header-cell *matHeaderCellDef
+                            [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                            {{ 'nom' | translate }}</mat-header-cell>
+                        <mat-cell *matCellDef="let element"
+                            [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+                            {{element.prenom | translate}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="nomPere">
+                        <mat-header-cell *matHeaderCellDef
+                            [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                            {{ 'prenom' | translate }} </mat-header-cell>
+                        <mat-cell *matCellDef="let element"
+                            [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+                            {{element.nomPere | translate}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="nom">
+                        <mat-header-cell *matHeaderCellDef
+                            [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                            {{ 'nomPere' | translate }} </mat-header-cell>
+                        <mat-cell *matCellDef="let element"
+                            [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+                            {{element.nom | translate}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Action Column -->
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef class="justify-content-center">
+                            <i class="fa fa-wrench" style="font-size: 1.5rem; cursor: pointer; color: black">
+                            </i>
+                        </mat-header-cell>
+
+                        <mat-cell mat-cell *matCellDef="let element" class="justify-content-center">
+                            <div class="row">
+                                <div class="col-1 mx-1">
+                                    <i class="ft-edit-2" style="font-size: 1.5rem; cursor: pointer; color: #FFC107"
+                                        (click)="onEdit()">
+                                    </i>
+                                </div>
+                                <div class="col-1 mx-1">
+                                    <i class="ft-trash-2" style="font-size: 1.5rem; cursor: pointer;color: #FF586B"
+                                        (click)="onEdit()">
+                                    </i>
+                                </div>
+                                <div class="col-1 mx-1">
+                                    <i class="fa fa-ellipsis-v" style="font-size: 1.5rem; cursor: pointer; color: grey"
+                                        (click)="onEdit()">
+                                    </i>
+                                </div>
+                            </div>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true;"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <mat-paginator [length]="countPage" [pageSize]="limit" [pageSizeOptions]="[5, 10, 20]"
+                    (page)="onPaginateChange($event)" showFirstLastButtons>
+                </mat-paginator>
+            </div>
+        </div>
+        <!--        /datatable start-->
+    </div>
+</section>
+
+<div class="col-2">
+    <button mat-stroked-button class="success-outline-btn " style="border-radius: 2rem;" (click)="this.test2()">
+        <i class="fa fa-plus mr-2" aria-hidden="true"></i>
+        <span [ngClass]="{'label-search-ar': currentLang=='ar', 'label-search-fr': currentLang=='fr'}"
+            class="text-arial bold">test Ajout</span>
+    </button>
+
+    <button mat-stroked-button class="success-outline-btn " style="border-radius: 2rem;" (click)="this.testModif2()">
+        <i class="fa fa-pencil mr-2" aria-hidden="true"></i>
+        <span [ngClass]="{'label-search-ar': currentLang=='ar', 'label-search-fr': currentLang=='fr'}"
+            class="text-arial bold">test Modif</span>
+    </button>
+</div>
+
+<app-personne-physique #child [idPersonne]="781"></app-personne-physique>
+<!-- <app-personne-morale #child2 [idPersonne]=""></app-personne-morale> -->
+
+<!-- <app-tiers #tier [idDossier]="119"></app-tiers> -->

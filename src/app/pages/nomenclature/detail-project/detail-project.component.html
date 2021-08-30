@@ -1,0 +1,202 @@
+<div class="container">
+ <div class="row">
+  <div class="col">
+    <div class="card" id="divElement" >
+      <div class="card-header border-transparent">
+        <h3 class="card-title"> fiche de projet : {{data[0].memberships[0].project.name}} </h3>
+        <table class="table" class="table table-hover">
+
+
+
+          <tbody>
+
+            <tr class='clickable-row'>
+              <td>id</td>
+              <td>{{data1[0].project.id}}</td>
+            </tr>
+            <tr class='clickable-row'>
+              <td> name </td>
+              <td>{{data1[0].project.name}}</td>
+            </tr>
+            <tr class='clickable-row'>
+              <td> description </td>
+              <td>{{data1[0].project.description}}</td>
+            </tr>
+            <tr class='clickable-row'>
+              <td> date of creation </td>
+              <td>{{data1[0].project.created_on}}</td>
+            </tr>
+            <tr class='clickable-row'>
+              <td> public </td>
+              <td>{{data1[0].project.is_public}}</td>
+            </tr>
+
+
+
+
+
+
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card mt-4">
+        <div class="card-header card-header-2 py-1 px-0">
+            <div class="row">
+                <div class="col">
+                    <i class="fa fa-list mx-2" aria-hidden="true"></i>
+                    <span class="mx-2 text-arial "
+                        [ngClass]="{'label-card-header-ar': currentLang=='ar', 'label-card-header-fr': currentLang=='fr'}">{{'Les projets' | translate}}</span>
+                </div>
+                <div class="col-auto float-right px-4">
+                    <div class="row m-0">
+                        
+                        <div class="col-11 py-0 m-0">
+                            <mat-label>Filter</mat-label>
+                            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <mat-table #table [dataSource]="this.datasource">
+                <!-- Checkbox Column -->
+                <!-- Position Column -->
+                
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="nom">
+                    <mat-header-cell *matHeaderCellDef
+                        [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                        {{ 'nom' | translate }}</mat-header-cell>
+                    <mat-cell *matCellDef="let element"
+                        [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+                        {{ element.user.name | translate}} </mat-cell>
+                </ng-container>
+
+                <!-- Weight Column -->
+               
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="roles">
+                    <mat-header-cell *matHeaderCellDef
+                        [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                        {{ 'roles' | translate }} </mat-header-cell>
+                    <mat-cell *matCellDef="let element"
+                        [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+                       
+                        <tr class='clickable-row'   *ngFor="let item of  element.roles"   > 
+                             <td> {{  item.name }} </td>
+                             </tr>   </mat-cell>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="action">
+                    <mat-header-cell *matHeaderCellDef class="justify-content-center">
+                        <i class="fa fa-wrench" style="font-size: 1.5rem; cursor: pointer; color: black">
+                        </i>
+                    </mat-header-cell>
+
+                    <mat-cell mat-cell *matCellDef="let element" class="justify-content-center">
+                        <div class="row">
+                             
+                             
+                                <i class="fa fa-ellipsis-v" style="font-size: 1.5rem; cursor: pointer; color: grey"
+                                routerLink="/nomenclature/detail"   ></i>
+
+                                
+                            
+                        </div>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true;"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator [length]="countPage" [pageSize]="limit" [pageSizeOptions]="[5, 10, 20]"
+                (page)="onPaginateChange($event)" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </div>
+  </div>
+  
+</div>
+ <div class="row">
+  <div class="col">
+    <div class="card mt-4"  >
+      <div class="card-header card-header-2 py-1 px-0">
+          <div class="row">
+            <div class="col">
+                <i class="fa fa-list mx-2" aria-hidden="true"></i>
+                <span class="mx-2 text-arial "
+                    [ngClass]="{'label-card-header-ar': currentLang=='ar', 'label-card-header-fr': currentLang=='fr'}">{{'Trackers' | translate}}</span>
+            </div>
+             
+              <div class="col-auto float-right px-4">
+                  <div class="row m-0">
+                      
+                      <div class="col-11 py-0 m-0">
+                        <mat-label>Filter</mat-label>
+                        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="card-body p-0">
+          <mat-table #table [dataSource]="this.datasource2">
+              <!-- Checkbox Column -->
+              <!-- Position Column -->
+              <ng-container matColumnDef="numPiece">
+                  <mat-header-cell *matHeaderCellDef
+                      [ngClass]="{'label-table-header-ar': currentLang=='ar', 'label-table-header-fr': currentLang=='fr'}">
+                      {{ 'Tracker' | translate }}</mat-header-cell>
+                  <mat-cell *matCellDef="let element"
+                      [ngClass]="{'cell-table-ar': currentLang=='ar', 'cell-table-fr': currentLang=='fr'}">
+                      {{element.name  }} </mat-cell>
+              </ng-container>
+
+              <!-- Name Column -->
+            
+
+              <!-- Weight Column -->
+               
+
+              <!-- Symbol Column -->
+              
+
+              <!-- Action Column -->
+              <ng-container matColumnDef="action">
+                  <mat-header-cell *matHeaderCellDef class="justify-content-center">
+                      <i class="fa fa-wrench" style="font-size: 1.5rem; cursor: pointer; color: black">
+                      </i>
+                  </mat-header-cell>
+
+                  <mat-cell mat-cell *matCellDef="let element" class="justify-content-center">
+                      <div class="row">
+                           
+                           
+                              <i class="fa fa-ellipsis-v" style="font-size: 1.5rem; cursor: pointer; color: grey"
+                              (click)="ViewTrack(element.id,element.name)">
+                              </i>
+                          
+                      </div>
+                  </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns1;sticky: true;"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns1;"></mat-row>
+          </mat-table>
+          <mat-paginator [length]="countPage" [pageSize]="limit" [pageSizeOptions]="[5, 10, 20]"
+              (page)="onPaginateChange($event)" showFirstLastButtons>
+          </mat-paginator>
+      </div>
+  </div>
+  </div>
+ </div>
+</div>

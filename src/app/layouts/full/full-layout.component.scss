@@ -1,0 +1,22 @@
+.scrolling-area {
+  overflow: auto;
+  padding: 1rem;
+  background: white;
+}
+
+*[dir="rtl"] .scrolling-area{
+  direction: rtl;
+}
+
+*[dir="ltr"] .scrolling-area{
+  direction: ltr;
+}
+
+
+.scrolling-element-inside {
+  direction: ltr;
+}
+
+.scrollbar-d-none{
+  overflow-y: hidden
+}

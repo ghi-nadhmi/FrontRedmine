@@ -1,0 +1,110 @@
+ <!--Login Page Starts-->
+<section id="login">
+    <div class="container-fluid">
+        <div class="row full-height-vh m-0">
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <div class="card" [ngClass]="{'login-card': currentLang === 'fr'}">
+                    <div class="card-content">
+                        <div class="card-body login-img">
+                            <div class="row m-0">
+                                <div
+                                    class="col-lg-6 d-sm-block py-2 px-3 text-center align-middle float-right background-image">
+                                    <!--
+                                    <div class="row col-md-12">
+                                        <img src="../../assets/img/round-flag-mauritanie.png" alt=""
+                                             align="middle" class=" img-logo "/>
+                                    </div>
+                                    -->
+                                    <div class="row col-md-12 justify-content-center">
+                                        <h1 class="text-form-login"
+                                            [ngClass]="{'text-form-login-ar': currentLang=='ar', 'text-form-login-fr': currentLang=='fr'}">
+                                            {{ ' ' | translate }}
+                                        </h1>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-12 bg-white px-4 pt-3">
+                                    <div class="row justify-content-center">
+                                        <img class="logo-header" src="../../assets/img/redmine.png">
+                                        <span class="vertical-line bg-grey bg-darken-1"></span>
+                                        <div class="col-8 mt-auto mb-auto mx-n2">
+                                            <div class="row">
+                                                <h4 class="titleLogin-form col-12"
+                                                    [ngClass]="{'text-form-title-ar': currentLang=='ar'}">{{
+                                                    'Application De ' | translate }}</h4>
+                                                <h4 class="titleLogin-form col-12"
+                                                    [ngClass]="{'text-form-title-ar': currentLang=='ar'}">{{ 'De Gestion Projets '
+                                                    | translate }}</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 class="text-login mt-5" [ngClass]="{'connectedYou-ar': currentLang=='ar'}">
+                                        {{'ConnectedYou'|translate}}</h4>
+                                     
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="ft-mail"></span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                  <input type="text" name="username" [(ngModel)]="username">
+                                                 
+                                             </div>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="ft-lock"></span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                 
+                                                 <input type="password" name="password" [(ngModel)]="password">
+                                             </div>
+                                        </div>
+                                        <div class="fg-actions">
+                                            <div class="row center">
+
+                                                <div class="login-btn col-12">
+                                                    <button (click)=checkLogin() class="btn col-12 round bg-green bg-darken-4"  class="btn btn-success" >
+                                                        <a class="text-decoration-none text-white text-arial"><span
+                                                            >{{'Login' |
+                                                            translate}}</span></a>
+                                                      </button>
+                                                    
+                                                </div>
+                                            </div>
+                                          
+                                            <div class="float-right"
+                                                [ngClass]="{'lang-title-ar': currentLang=='ar', 'lang-title-fr': currentLang=='fr'}">
+                                                <a class="text-arial"
+                                                    (click)="$event.preventDefault();onChangeLanguage(currentLang==='ar'?'fr':'ar')">
+                                                    <span *ngIf="currentLang==='ar'"
+                                                        style="font-size: 1.35rem; text-decoration: underline;">{{'Francais'
+                                                        | translate}}</span>
+                                                    <span *ngIf="currentLang==='fr'"
+                                                        style="font-size: 1.1rem; text-decoration: underline;">Arabe</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                     
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Login Page Ends-->
+<!-- <div class="container">
+    <div>
+      User Name : <input type="text" name="username" [(ngModel)]="username">
+      Password : <input type="password" name="password" [(ngModel)]="password">
+    </div>
+    <button (click)=checkLogin() class="btn btn-success">
+      Login
+    </button>
+  </div> -->

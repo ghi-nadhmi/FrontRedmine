@@ -1,0 +1,132 @@
+.cal-week-view .cal-day-headers span {
+  display: none !important;
+}
+
+*[dir="rtl"] .cal-week-view .cal-day-headers {
+  display: flex;
+  padding-left: 2px;
+  padding-right: 70px;
+  border: 1px solid;
+
+  border-right: 1px solid;
+  border-color: #e1e1e1;
+}
+*[dir="rtl"] .cal-week-view .cal-day-headers .cal-header:not(:last-child) {
+  border-left: 1px solid;
+  border-color: #e1e1e1;
+}
+*[dir="rtl"] .cal-week-view .cal-day-column {
+  border-right-color: #e1e1e1 !important;
+  border-right: 1px solid;
+}
+
+.cal-current-time-marker {
+  display: none;
+}
+.amineColor {
+  background-color: rgb(117, 230, 122) !important;
+}
+
+.amineColor2 {
+  background-color: rgb(86, 211, 92) !important;
+}
+
+.amineColor3 {
+  background-color: rgb(86, 196, 211) !important;
+}
+
+.cal-week-view .cal-hour:not(:last-child) .cal-hour-segment,
+.cal-week-view .cal-hour:last-child :not(:last-child) .cal-hour-segment {
+  border-bottom: none;
+}
+.cal-time {
+  display: none;
+}
+.cal-header {
+  font-family: arial;
+  color: #212529;
+  font-size: 20px;
+}
+
+.cal-header {
+  font-family: arial;
+  font-size: 25px;
+}
+
+*[dir="rtl"] .cal-event-title {
+  float: right;
+}
+
+*[dir="ltr"] .cal-event-action {
+  float: right;
+}
+*[dir="rtl"] .fa-trash {
+  margin-left: 8px;
+}
+
+*[dir="ltr"] .fa-trash {
+  margin-right: 8px;
+}
+*[dir="rtl"] .mystyle007 {
+  background-color: rgb(117, 230, 122) !important;
+  text-orientation: mixed;
+  writing-mode: vertical-rl;
+  color: #212529;
+  font-size: 40px;
+  font-family: arial;
+  display: block !important;
+  padding-right: 35%;
+  padding-left: 60%;
+  padding-top: 76%;
+  padding-bottom: 74%;
+}
+
+*[dir="rtl"] .mystyle008 {
+  background-color: rgb(86, 211, 92) !important;
+  text-orientation: mixed;
+  writing-mode: vertical-rl;
+  color: #212529;
+  font-size: 40px;
+  font-family: arial;
+  display: block !important;
+  padding-right: 35%;
+  padding-left: 60%;
+  padding-top: 78%;
+  padding-bottom: 100%;
+}
+
+*[dir="ltr"] .mystyle007 {
+  background-color: rgb(117, 230, 122) !important;
+  text-orientation: mixed;
+  writing-mode: vertical-rl;
+  color: #212529;
+  font-size: 40px;
+  font-family: arial;
+  display: block !important;
+  padding-right: 35%;
+  padding-left: 44%;
+  padding-top: 77%;
+  padding-bottom: 132%;
+}
+
+*[dir="ltr"] .mystyle008 {
+  background-color: rgb(86, 211, 92) !important;
+  text-orientation: mixed;
+  writing-mode: vertical-rl;
+  color: #212529;
+  font-size: 40px;
+  font-family: arial;
+  display: block !important;
+  padding-right: 35%;
+  padding-left: 44%;
+  padding-top: 80%;
+  padding-bottom: 168%;
+}
+*[dir="rtl"] .cal-event-title {
+  float: right;
+}
+
+*[dir="ltr"] .cal-event-action {
+  float: right;
+}
+
